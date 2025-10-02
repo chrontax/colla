@@ -5,6 +5,13 @@
 
 namespace colla {
 
+/**
+ * A simple fixed-size buffer allocator that allocates memory from a
+ * pre-allocated buffer. The memory is only freed when reset() is called.
+ *
+ * @tparam T The type of elements to allocate.
+ * @tparam N The number of elements in the fixed buffer.
+ */
 template <typename T, std::size_t N> struct FixedBufferAllocator {
     using value_type = T;
 
@@ -18,9 +25,15 @@ template <typename T, std::size_t N> struct FixedBufferAllocator {
         using other = FixedBufferAllocator<U, N>;
     };
 
+    /**
+     * Throws std::bad_alloc if the buffer is exhausted.
+     */
     [[nodiscard]] constexpr T* allocate(std::size_t n);
     constexpr void deallocate(T*, std::size_t) noexcept {}
 
+    /**
+     * Resets the allocator, making all previously allocated memory available.
+     */
     constexpr void reset() noexcept;
 
   private:
