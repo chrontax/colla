@@ -16,7 +16,7 @@ if(IWYU_PATH)
   set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${IWYU_PATH})
 endif()
 
-set(EXAMPLES example_fixed example_arena)
+set(EXAMPLES example_fixed example_arena example_slab)
 
 foreach(example ${EXAMPLES})
   add_executable(${example} "${example}.cpp")
